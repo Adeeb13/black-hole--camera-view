@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Black Hole Explorer – Event Horizon Experience</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Black Hole Explorer – A futuristic, interactive 3D educational experience about black holes, gravity, and space."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="loading-overlay" aria-live="polite">
+      <div class="loading-core"></div>
+      <div class="loading-ring"></div>
+      <p>Calibrating cosmic instruments…</p>
+    </div>
+
+    <header class="eh-header">
+      <div class="logo">
+        <span class="logo-main">BLACK HOLE EXPLORER</span>
+        <span class="logo-sub">Event Horizon Experience</span>
+      </div>
+      <nav class="main-nav">
+        <a href="#universe-entry">Universe</a>
+        <a href="#blackhole-lab">Black Hole</a>
+        <a href="#journey">Journey</a>
+        <a href="#ask-universe">Cosmos AI</a>
+        <a href="#game-section">Game</a>
+      </nav>
+    </header>
+
+    <!-- 3D UNIVERSE + BLACK HOLE -->
+    <main>
+      <section id="universe-entry" class="section full-viewport">
+        <canvas id="universeCanvas"></canvas>
+        <div class="hero-overlay">
+          <h1>BLACK HOLE EXPLORER</h1>
+          <p class="hero-subtitle">
+            Scroll down to explore the lab, or enter space mode to fly the camera through the universe.
+          </p>
+          <div class="hero-actions">
+            <button id="startJourneyBtn" class="primary-btn">
+              Start Guided Journey
+            </button>
+          </div>
+          <div class="space-mode-cta">
+            <button id="spaceModeBtn" class="space-mode-btn">
+              🚀 ENTER SPACE MODE
+              <span class="btn-subtext">Enable 3D space navigation</span>
+            </button>
+          </div>
+          <div class="scroll-indicator">
+            <span>Scroll to dive deeper</span>
+            <div class="scroll-line"></div>
+          </div>
+        </div>
+        <div id="space-tooltip" class="space-tooltip hidden">
+          <h3 id="tooltip-title"></h3>
+          <p id="tooltip-body"></p>
+        </div>
+
+        <div id="bh-modal" class="modal hidden" role="dialog" aria-modal="true">
+          <div class="modal-panel">
+            <div class="modal-header">
+              <h3 id="bh-modal-title"></h3>
+              <button id="bh-modal-close" class="modal-close" aria-label="Close">
+                ✕
+              </button>
+            </div>
+            <p id="bh-modal-body"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- BLACK HOLE LEARNING LAB -->
+      <section id="blackhole-lab" class="section dark-panel">
+        <div class="section-header">
+          <h2>Black Hole Lab (Tap to Learn)</h2>
+          <p>
+            Click the glowing parts of the black hole to open popups. Use the cards
+            to focus the camera and learn in student‑friendly language.
+          </p>
+        </div>
+        <div class="lab-layout">
+          <div class="lab-cards">
+            <article class="lab-card" data-topic="what">
+              <h3>1️⃣ What is a Black Hole?</h3>
+              <p>
+                A region of spacetime where gravity is so strong that nothing,
+                not even light, can escape.
+              </p>
+              <button class="lab-focus-btn" data-focus="core">
+                Focus on Core
+              </button>
+            </article>
+
+            <article class="lab-card" data-topic="formation">
+              <h3>2️⃣ How Black Holes Form</h3>
+              <p>
+                Many form when massive stars collapse at the end of their lives,
+                compressing mass into an ultra‑dense point.
+              </p>
+              <button class="lab-focus-btn" data-focus="disk">
+                See Collapse Region
+              </button>
+            </article>
+
+            <article class="lab-card" data-topic="types">
+              <h3>3️⃣ Types of Black Holes</h3>
+              <ul>
+                <li>Stellar‑mass</li>
+                <li>Intermediate‑mass</li>
+                <li>Supermassive</li>
+              </ul>
+              <button class="lab-focus-btn" data-focus="photon">
+                Reveal Photon Sphere
+              </button>
+            </article>
+
+            <article class="lab-card" data-topic="beyond">
+              <h3>4️⃣ Near the Event Horizon</h3>
+              <p>
+                Crossing this boundary means no signals can return; physics as
+                we know it reaches its limits.
+              </p>
+              <button class="lab-focus-btn" data-focus="horizon">
+                Highlight Event Horizon
+              </button>
+            </article>
+
+            <article class="lab-card" data-topic="discoveries">
+              <h3>5️⃣ Famous Discoveries</h3>
+              <p>
+                From gravitational waves to the first black hole image, new data
+                reshapes our view of the cosmos every year.
+              </p>
+              <button class="lab-focus-btn" data-focus="orbit">
+                Show Star Orbits
+              </button>
+            </article>
+          </div>
+
+          <div class="lab-diagram-panel">
+            <h3>Interactive Diagram</h3>
+            <p class="lab-diagram-text">
+              Move your cursor over the glowing regions in the scene to reveal
+              labels like
+              <span class="inline-tag">Event Horizon</span>,
+              <span class="inline-tag">Accretion Disk</span>,
+              <span class="inline-tag">Photon Sphere</span>, and more.
+            </p>
+            <div class="diagram-legend">
+              <div class="legend-item">
+                <span class="legend-swatch swatch-core"></span>
+                <span>Singularity (theoretical point of infinite density)</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-swatch swatch-horizon"></span>
+                <span>Event Horizon (no‑return boundary)</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-swatch swatch-disk"></span>
+                <span>Accretion Disk (superheated infalling matter)</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-swatch swatch-photon"></span>
+                <span>Photon Sphere (light orbits the hole)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- JOURNEY TIMELINE -->
+      <section id="journey" class="section">
+        <div class="section-header">
+          <h2>Journey Into the Black Hole</h2>
+          <p>
+            Follow a star&rsquo;s final journey, from peaceful orbit to a
+            catastrophic collapse that warps spacetime.
+          </p>
+        </div>
+        <div class="journey-track">
+          <article class="journey-stage" data-stage="universe">
+            <h3>Universe</h3>
+            <p>
+              A vast cosmic web of galaxies, dark matter, and energy. On the
+              largest scales, everything looks smooth and uniform.
+            </p>
+          </article>
+          <article class="journey-stage" data-stage="galaxy">
+            <h3>Galaxy</h3>
+            <p>
+              Islands of stars orbiting supermassive black holes. Our home, the
+              Milky Way, is just one of hundreds of billions.
+            </p>
+          </article>
+          <article class="journey-stage" data-stage="dying-star">
+            <h3>Dying Star</h3>
+            <p>
+              A massive star runs out of fuel, its core no longer able to
+              counteract gravity&rsquo;s inward pull.
+            </p>
+          </article>
+          <article class="journey-stage" data-stage="supernova">
+            <h3>Supernova</h3>
+            <p>
+              The outer layers explode in a brilliant flash, briefly outshining
+              entire galaxies and forging heavy elements.
+            </p>
+          </article>
+          <article class="journey-stage" data-stage="formation">
+            <h3>Black Hole Formation</h3>
+            <p>
+              The stellar core collapses into an ultra‑dense object. If massive
+              enough, a black hole is born.
+            </p>
+          </article>
+          <article class="journey-stage" data-stage="event-horizon">
+            <h3>Event Horizon</h3>
+            <p>
+              A point of no return. Time slows for an outside observer as
+              matter appears to freeze at the edge.
+            </p>
+          </article>
+          <article class="journey-stage" data-stage="singularity">
+            <h3>Singularity</h3>
+            <p>
+              Deep inside, known physics breaks down. New theories of quantum
+              gravity are needed to describe this realm.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ASK THE UNIVERSE ASSISTANT -->
+      <section id="ask-universe" class="section dark-panel">
+        <div class="section-header">
+          <h2>Ask the Cosmos AI</h2>
+          <p>
+            Ask student‑friendly questions about black holes, stars, galaxies,
+            gravity, and space exploration.
+          </p>
+        </div>
+        <div class="assistant-layout">
+          <div class="assistant-console">
+            <div class="assistant-log" id="assistantLog"></div>
+            <form id="assistantForm" class="assistant-form">
+              <input
+                type="text"
+                id="assistantInput"
+                autocomplete="off"
+                placeholder="e.g. How do black holes grow?"
+              />
+              <button type="submit" class="primary-btn">
+                Ask
+              </button>
+            </form>
+          </div>
+          <aside class="assistant-hints">
+            <h3>Try asking…</h3>
+            <ul>
+              <li>“What happens at the event horizon?”</li>
+              <li>“How are black holes detected?”</li>
+              <li>“What is a galaxy?”</li>
+              <li>“How strong is gravity near a black hole?”</li>
+              <li>“Who discovered the first black hole?”</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <!-- EDUCATIONAL MINI‑GAME -->
+      <section id="game-section" class="section">
+        <div class="section-header">
+          <h2>🚀 Escape the Black Hole</h2>
+          <p>
+            Learn gravity and orbit motion by playing. The closer you get to the
+            black hole, the stronger the pull (watch the gravity meter).
+          </p>
+        </div>
+        <div class="game-layout">
+          <canvas id="gameCanvas" width="900" height="500">
+            Your browser does not support the HTML5 Canvas element.
+          </canvas>
+          <div class="game-hud">
+            <div class="hud-line">
+              <span class="hud-label">Controls</span>
+              <span class="hud-value">Arrow keys / WASD / Touch drag</span>
+            </div>
+            <div class="hud-line">
+              <span class="hud-label">Mission</span>
+              <span class="hud-value"
+                >Reach the safe zone on the right before gravity pulls you
+                back.</span
+              >
+            </div>
+            <button id="restartGameBtn" class="ghost-btn">Restart Mission</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <button id="spaceModeToggle" class="space-toggle hidden">
+      ✕ EXIT SPACE MODE
+    </button>
+
+    <footer class="eh-footer">
+      <p>
+        Built for curious minds. Optimized for classrooms, planetariums, and
+        late‑night stargazers.
+      </p>
+    </footer>
+
+    <!-- Local vendor scripts (works offline + GitHub Pages) -->
+    <script src="js/vendor/three.min.js"></script>
+
+    <!-- Project Scripts -->
+    <script src="js/spaceAI.js"></script>
+    <script src="js/blackhole.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
+
